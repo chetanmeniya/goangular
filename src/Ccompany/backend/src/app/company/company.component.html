@@ -1,0 +1,87 @@
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <div class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+            <h1 class="m-0 text-dark">Company Details</h1>
+          </div><!-- /.col -->
+          <div class="col-sm-6">
+            <ol class="breadcrumb float-sm-right">
+              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item active">Company Details</li>
+            </ol>
+          </div><!-- /.col -->
+        </div><!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </div>
+    <!-- /.content-header -->
+
+    <!-- Main content -->
+    <section class="content">
+      <div class="container-fluid">
+        <!-- Info boxes -->
+        <div class="row">
+          <div class="col-12 col-sm-6 col-md-3">
+            <div class="row">
+                <div class="col-md-6">
+                  <div class="row" *ngIf="companies.length > 0;else nodata">
+
+                    <table datatable [dtOptions]="dtOptions" class="row-border hover">
+                      <thead>
+                        <tr>
+                          <th>ID</th>
+                          <th>First name</th>
+                          <th>Last name</th>
+                        </tr>
+                      </thead>
+                      <tbody *ngIf="companies?.length != 0">
+                        <tr *ngFor="let company of companies">
+                          <td>{{ company.id }}</td>
+                          <td>{{ company.name }}</td>
+                          <td>{{ company.status }}</td>
+                        </tr>
+                      </tbody>
+                      <tbody *ngIf="companies?.length == 0">
+                        <tr>
+                          <td colspan="3" class="no-data-available">No data!</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                    
+                    <table class="table">
+                        <thead class="thead-light">
+                            <tr>
+                                <th>Id</th>
+                                <th>Name</th>
+                                <th>Status</th>
+                                <th></th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let company of companies">
+                                <td (click)="populateForm(pd)">{{company.id}}</td>
+                                <td (click)="populateForm(pd)">{{company.name}}</td>
+                                <td (click)="populateForm(pd)">
+                                  <div *ngIf="company.status==1;else inactive">
+                                    Active
+                                  </div>
+                                  <ng-template #inactive>InActive</ng-template>
+                                </td>
+                                <td>
+                                    <i class="far fa-trash-alt fa-lg text-danger" (click)="onDelete(company.id)"></i>
+                                    <i class="far fa-edit fa-lg" (click)="populateForm(company)"></i>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                  </div>
+                  <ng-template #nodata><br>No Data Found</ng-template>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+</div>
