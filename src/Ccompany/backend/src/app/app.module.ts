@@ -38,8 +38,8 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
     ToastrModule.forRoot(),
     RouterModule.forRoot([
         {path:'',component: DashboardComponent},
-        {path:'company/list',component: CompanyComponent}
-        {path:'company/insert',component: AddcompanyComponent}
+        {path:'company/list',component: CompanyComponent},
+        {path:'company/insert',component: AddcompanyComponent},
         {path:'company/update',component: AddcompanyComponent}
     ])
   ],
