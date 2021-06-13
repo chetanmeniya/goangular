@@ -29,31 +29,31 @@ export class CompanyComponent implements OnInit {
     readonly baseURL = 'http://localhost:5000/';
 
   ngOnInit(): void {
-    this.service.refreshList().subscribe(data => {
-      this.alldata = data;
-      this.companies = this.alldata.data;
-    });
-    // const that = this;
-    // this.dtOptions = {
-    //   pagingType: 'full_numbers',
-    //   pageLength: 2,
-    //   serverSide: true,
-    //   processing: true,
-    //   ajax: (dataTablesParameters: any, callback) => {
-    //     that.http.post<DataTablesResponse>(
-    //         that.baseURL+"listcompanies",
-    //         dataTablesParameters, {}
-    //       ).subscribe(resp => {
-    //         that.companies = resp.data;
-    //         callback({
-    //           recordsTotal: resp.recordsTotal,
-    //           recordsFiltered: resp.recordsFiltered,
-    //           data: []
-    //         });
-    //       });
-    //   },
-    //   columns: [{ data: 'id' }, { data: 'name' }, { data: 'status' }]
-    // }
+    // this.service.refreshList().subscribe(data => {
+    //   this.alldata = data;
+    //   this.companies = this.alldata.data;
+    // });
+    const that = this;
+    this.dtOptions = {
+      pagingType: 'full_numbers',
+      pageLength: 2,
+      serverSide: true,
+      processing: true,
+      ajax: (dataTablesParameters: any, callback) => {
+        that.http.post<DataTablesResponse>(
+            that.baseURL+"listcompanies",
+            dataTablesParameters, {}
+          ).subscribe(resp => {
+            that.companies = resp.data;
+            callback({
+              recordsTotal: resp.recordsTotal,
+              recordsFiltered: resp.recordsFiltered,
+              data: []
+            });
+          });
+      },
+      columns: [{ data: 'id' }, { data: 'name' }, { data: 'status' }]
+    }
   }
 
   populateForm(selectedRecord: Company) {
